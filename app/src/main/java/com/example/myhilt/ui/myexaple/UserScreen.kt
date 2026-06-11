@@ -17,7 +17,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.myhilt.domain.User
 
 @Composable
-fun MyExampleScreen(viewModel: MyExampleViewModel = hiltViewModel()) {
+fun UserScreen(viewModel: UserViewModel = hiltViewModel()) {
     val user by viewModel.userState.collectAsState()
 
     Box(
@@ -29,13 +29,13 @@ fun MyExampleScreen(viewModel: MyExampleViewModel = hiltViewModel()) {
         if (currentUser == null) {
             CircularProgressIndicator() // Крутилка пока база пустая и идет запрос
         } else {
-            MyExampleScreenContent(user = currentUser)
+            UserScreenContent(user = currentUser)
         }
     }
 }
 
 @Composable
-fun MyExampleScreenContent(user: User) {
+fun UserScreenContent(user: User) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(8.dp)
@@ -48,8 +48,8 @@ fun MyExampleScreenContent(user: User) {
 
 @Preview(showBackground = true)
 @Composable
-fun MyExampleScreenPreview() {
-    MyExampleScreenContent(
+fun UserScreenPreview() {
+    UserScreenContent(
         user = User(
             1,
             "John Doe",
