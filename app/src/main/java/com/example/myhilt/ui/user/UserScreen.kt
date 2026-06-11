@@ -1,4 +1,4 @@
-package com.example.myhilt.ui.myexaple
+package com.example.myhilt.ui.user
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box

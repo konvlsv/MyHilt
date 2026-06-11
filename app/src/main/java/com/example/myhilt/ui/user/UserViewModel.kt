@@ -1,4 +1,4 @@
-package com.example.myhilt.ui.myexaple
+package com.example.myhilt.ui.user
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
