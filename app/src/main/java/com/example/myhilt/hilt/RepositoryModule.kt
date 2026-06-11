@@ -1,4 +1,4 @@
-package com.example.myhilt
+package com.example.myhilt.hilt
 
 import com.example.myhilt.data.UserRepositoryImpl
 import com.example.myhilt.domain.UserRepository
