@@ -1,4 +1,4 @@
-package com.example.myhilt.ui
+package com.example.myhilt.ui.myexaple
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
