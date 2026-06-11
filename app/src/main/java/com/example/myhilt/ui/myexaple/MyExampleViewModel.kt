@@ -6,7 +6,9 @@ import com.example.myhilt.domain.GetUserProfileUseCase
 import com.example.myhilt.domain.UserRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -15,17 +17,19 @@ class MyExampleViewModel @Inject constructor(
     private val getUserProfileUseCase: GetUserProfileUseCase
 ) : ViewModel() {
 
-    private val _userName = MutableStateFlow("")
-    val userName: StateFlow<String> = _userName
+    // Преобразуем Flow из UseCase в StateFlow для Compose
+    val userName: StateFlow<String> = getUserProfileUseCase.getNameStream(userId = 1)
+        .stateIn(
+            scope = viewModelScope,
+            started = SharingStarted.WhileSubscribed(5000),
+            initialValue = "Загрузка..."
+        )
 
     init {
-        loadUser()
-    }
-
-    private fun loadUser() {
+        // Запускаем фоновое обновление сети. Данные скачаются, упадут в Room,
+        // и userName автоматически обновится!
         viewModelScope.launch {
-            // Благодаря оператору 'invoke' мы вызываем экземпляр класса как обычную функцию
-            _userName.value = getUserProfileUseCase(userId = 1)
+            getUserProfileUseCase.refresh(userId = 1)
         }
     }
 }
