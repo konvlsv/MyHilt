@@ -3,6 +3,7 @@ package com.example.myhilt.ui.myexaple
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.myhilt.domain.GetUserProfileUseCase
+import com.example.myhilt.domain.User
 import com.example.myhilt.domain.UserRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -18,11 +19,12 @@ class MyExampleViewModel @Inject constructor(
 ) : ViewModel() {
 
     // Преобразуем Flow из UseCase в StateFlow для Compose
-    val userName: StateFlow<String> = getUserProfileUseCase.getNameStream(userId = 1)
+    // Теперь тип StateFlow — это User?
+    val userState: StateFlow<User?> = getUserProfileUseCase.getUserStream(userId = 1)
         .stateIn(
             scope = viewModelScope,
             started = SharingStarted.WhileSubscribed(5000),
-            initialValue = "Загрузка..."
+            initialValue = null // Изначально данных нет
         )
 
     init {

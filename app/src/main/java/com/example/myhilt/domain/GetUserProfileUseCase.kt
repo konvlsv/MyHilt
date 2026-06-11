@@ -8,10 +8,11 @@ class GetUserProfileUseCase @Inject constructor(
     // Хилт сам прокинет сюда репозиторий, так как мы настроили его раньше
     private val repository: UserRepository
 ) {
-    // Возвращаем Flow со строкой
-    fun getNameStream(userId: Int): Flow<String> {
-        return repository.getUserNameStream(userId).map { name ->
-            name?.uppercase() ?: "ЗАГРУЗКА..."
+    // Возвращает поток с объектом User?
+    fun getUserStream(userId: Int): Flow<User?> {
+        return repository.getUserStream(userId).map { user ->
+            // Здесь можно провести дополнительную модификацию объекта, если нужно
+            user?.copy(name = user.name.uppercase())
         }
     }
 

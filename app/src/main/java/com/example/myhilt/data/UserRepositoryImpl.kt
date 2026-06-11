@@ -3,6 +3,7 @@ package com.example.myhilt.data
 import com.example.myhilt.data.local.UserDao
 import com.example.myhilt.data.local.UserEntity
 import com.example.myhilt.data.remote.UserApiService
+import com.example.myhilt.domain.User
 import com.example.myhilt.domain.UserRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
@@ -14,8 +15,11 @@ class UserRepositoryImpl @Inject constructor(
 ) : UserRepository {
 
     // Стрим данных: UI подписывается на базу данных. Изменилась БД -> обновился UI.
-    override fun getUserNameStream(id: Int): Flow<String?> {
-        return userDao.getUserById(id).map { entity -> entity?.name }
+    override fun getUserStream(id: Int): Flow<User?> {
+        return userDao.getUserById(id).map { entity ->
+            // Если entity не null, превращаем его в доменный User
+            entity?.toDomain()
+        }
     }
 
     // Сетевой запрос: скачиваем данные и сохраняем в БД
@@ -35,4 +39,13 @@ class UserRepositoryImpl @Inject constructor(
             // но база данных все равно останется доступной для чтения!
         }
     }
+}
+
+private fun UserEntity.toDomain(): User {
+    return User(
+        id = id,
+        name = name,
+        username = username,
+        email = email
+    )
 }
