@@ -70,4 +70,9 @@ dependencies {
     // OkHttp (для логирования сетевых запросов)
     implementation(libs.okhttp)
     implementation(libs.okhttp.logging.interceptor)
+
+    // Room
+    implementation(libs.androidx.room.runtime)
+    implementation(libs.androidx.room.ktx)
+    ksp(libs.androidx.room.compiler)
 }
