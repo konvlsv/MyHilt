@@ -1,5 +1,6 @@
 package com.example.myhilt.data
 
+import com.example.myhilt.data.remote.UserApiService
 import com.example.myhilt.domain.UserRepository
 import javax.inject.Inject
 

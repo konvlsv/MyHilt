@@ -1,4 +1,4 @@
-package com.example.myhilt.data
+package com.example.myhilt.data.remote
 
 import kotlinx.serialization.Serializable
 

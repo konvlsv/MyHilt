@@ -1,6 +1,6 @@
 package com.example.myhilt
 
-import com.example.myhilt.data.UserApiService
+import com.example.myhilt.data.remote.UserApiService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
