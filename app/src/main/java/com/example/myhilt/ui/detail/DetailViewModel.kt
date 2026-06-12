@@ -19,7 +19,8 @@ class DetailViewModel @Inject constructor(
 ) : ViewModel() {
 
     // Извлекаем userId, который придет из маршрута навигации (строка "userId")
-    private val userId: Int = checkNotNull(savedStateHandle["userId"])
+    // Извлекаем как String и конвертируем в Int
+    private val userId: Int = checkNotNull(savedStateHandle.get<String>("userId")).toInt()
 
     val userDetailState: StateFlow<User?> = getUserProfileUseCase.getUserStream(userId)
         .stateIn(
