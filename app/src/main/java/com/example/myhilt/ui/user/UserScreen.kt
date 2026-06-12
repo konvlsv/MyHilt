@@ -4,6 +4,8 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Button
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -17,7 +19,10 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.myhilt.domain.User
 
 @Composable
-fun UserScreen(viewModel: UserViewModel = hiltViewModel()) {
+fun UserScreen(
+    onNavigateToDetail: (userId: Int) -> Unit,
+    viewModel: UserViewModel = hiltViewModel()
+) {
     val user by viewModel.userState.collectAsState()
 
     Box(
@@ -29,7 +34,16 @@ fun UserScreen(viewModel: UserViewModel = hiltViewModel()) {
         if (currentUser == null) {
             CircularProgressIndicator() // Крутилка пока база пустая и идет запрос
         } else {
-            UserScreenContent(user = currentUser)
+            Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                UserScreenContent(user = currentUser)
+
+                Button(
+                    onClick = { onNavigateToDetail(currentUser.id) },
+                    modifier = Modifier.padding(top = 16.dp)
+                ) {
+                    Text(text = "Посмотреть детали")
+                }
+            }
         }
     }
 }
